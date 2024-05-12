@@ -1,6 +1,7 @@
 package com.oldcapstone.maack.sheetmusic.presentation;
 
 import com.oldcapstone.maack.common.presentation.ApiResponse;
+import com.oldcapstone.maack.sheetmusic.business.SheetMusicService;
 import com.oldcapstone.maack.sheetmusic.presentation.dto.SheetMusicResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,9 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class SheetMusicApi {
 
+    private final SheetMusicService sheetMusicService;
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse<SheetMusicResponseDTO.UploadSheetMusic> addSheetMusic(@RequestParam final MultipartFile file) {
-        return null;
+        return ApiResponse.onSuccess(sheetMusicService.addSheetMusic(file));
     }
 }
