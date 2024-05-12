@@ -15,7 +15,7 @@ public class MusicXMLFile extends BaseDateTimeEntity {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "midi_file_id")
+    @JoinColumn(name = "midi_file_id", nullable = false)
     private MIDIFile midiFile;
 
     @Column(nullable = false)

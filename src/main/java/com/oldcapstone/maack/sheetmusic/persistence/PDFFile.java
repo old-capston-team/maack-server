@@ -16,7 +16,7 @@ public class PDFFile extends BaseDateTimeEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sheet_music_id")
+    @JoinColumn(name = "sheet_music_id", nullable = false)
     private SheetMusic sheetMusic;
 
     @Column(nullable = false)
