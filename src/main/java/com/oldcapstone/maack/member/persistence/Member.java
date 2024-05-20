@@ -3,8 +3,12 @@ package com.oldcapstone.maack.member.persistence;
 import com.oldcapstone.maack.common.enums.MemberRole;
 import com.oldcapstone.maack.common.enums.SocialType;
 import com.oldcapstone.maack.common.persistence.BaseDateTimeEntity;
+import com.oldcapstone.maack.sheetmusic.persistence.SheetMusic;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,5 +35,8 @@ public class Member extends BaseDateTimeEntity {
     private String profileImgUrl;
 
     private String email;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<SheetMusic> sheetMusicList = new ArrayList<>();
 }
 
