@@ -4,6 +4,7 @@ import com.oldcapstone.maack.common.presentation.ApiResponse;
 import com.oldcapstone.maack.sheetmusic.business.SheetMusicService;
 import com.oldcapstone.maack.sheetmusic.presentation.dto.SheetMusicResponseDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,5 +20,11 @@ public class SheetMusicApi {
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse<SheetMusicResponseDTO.UploadSheetMusic> addSheetMusic(@RequestParam final MultipartFile file) {
         return ApiResponse.onSuccess(sheetMusicService.addSheetMusic(file));
+    }
+
+    @GetMapping("/me")
+    public ApiResponse<SheetMusicResponseDTO.MySheetMusicPreViewListDTO> getMySheetMusicList(@RequestParam final Long memberId,
+                                                                                             @RequestParam final Integer page){
+        return ApiResponse.onSuccess(sheetMusicService.getMySheetMusicList(memberId,(page-1)));
     }
 }
