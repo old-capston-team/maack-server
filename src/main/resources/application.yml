@@ -9,6 +9,17 @@ spring:
     multipart:
       maxFileSize: 10MB
       maxRequestSize: 20MB
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    s3:
+      bucket: maack.bucket
+    credentials:
+      access-key: ${ACCESS_KEY}
+      secret-key: ${SECRET_KEY}
+    stack:
+      auto: false
 ---
 spring:
   config:
