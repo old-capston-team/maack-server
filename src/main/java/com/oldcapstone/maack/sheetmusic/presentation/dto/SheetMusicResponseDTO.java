@@ -51,4 +51,18 @@ public class SheetMusicResponseDTO {
         String url;
         Long fileSize;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SheetMusicViewResponseDTO{
+        Long sheetMusicId;
+        String pdfFileName;
+        String pdfFileUrl;
+        String musicXMLFileName;
+        String musicXMLFIleUrl;
+        String midiFileName;
+        String midiFileUrl;
+    }
 }

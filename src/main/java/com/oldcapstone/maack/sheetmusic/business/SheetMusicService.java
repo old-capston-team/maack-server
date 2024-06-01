@@ -30,6 +30,10 @@ import java.io.IOException;
 public class SheetMusicService {
 
     private final SheetMusicQueryAdapter sheetMusicQueryAdapter;
+    private final PDFFileQueryAdapter pdfFileQueryAdapter;
+    private final MidiFileQueryAdapter midiFileQueryAdapter;
+    private final MusicXMLFileQueryAdapter musicXMLFileQueryAdapter;
+
     private final SheetMusicMapper sheetMusicMapper;
     private final MidiAdapter midiAdapter;
     private final S3Uploader s3Uploader;
@@ -46,6 +50,14 @@ public class SheetMusicService {
     public SheetMusicResponseDTO.MySheetMusicPreViewListDTO getMySheetMusicList(Long memberId, Integer page) {
         Page<SheetMusic> sheetMusicPage = sheetMusicQueryAdapter.findByMember(memberId, page);
         return sheetMusicMapper.mySheetMusicPreViewListDTO(sheetMusicPage);
+    }
+
+    public SheetMusicResponseDTO.SheetMusicViewResponseDTO getSheetMusic(Long sheetMusicId){
+        SheetMusic sheetMusic = sheetMusicQueryAdapter.findById(sheetMusicId);
+        PDFFile pdfFile = pdfFileQueryAdapter.findBySheetMusic(sheetMusicId);
+        MIDIFile midiFile = midiFileQueryAdapter.findByPDFFile(sheetMusicId);
+        MusicXMLFile musicXMLFile = musicXMLFileQueryAdapter.findByMidiFile(sheetMusicId);
+        return sheetMusicMapper.getSheetMusicDTO(sheetMusic, pdfFile,musicXMLFile,midiFile);
     }
 
     @Transactional
