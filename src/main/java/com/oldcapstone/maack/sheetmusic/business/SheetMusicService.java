@@ -21,6 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import jakarta.xml.bind.JAXBException;
+import javax.sound.midi.InvalidMidiDataException;
+import java.io.IOException;
+
 @Service
 @RequiredArgsConstructor
 public class SheetMusicService {
@@ -37,6 +41,8 @@ public class SheetMusicService {
 
     private final S3BucketProperties s3BucketProperties;
 
+    private final MidiToMusicXMLConverter midiToMusicXMLConverter;
+
     public SheetMusicResponseDTO.MySheetMusicPreViewListDTO getMySheetMusicList(Long memberId, Integer page) {
         Page<SheetMusic> sheetMusicPage = sheetMusicQueryAdapter.findByMember(memberId, page);
         return sheetMusicMapper.mySheetMusicPreViewListDTO(sheetMusicPage);
@@ -50,6 +56,7 @@ public class SheetMusicService {
         try {
             // 1. SheetMusic 엔티티 생성 및 저장
             SheetMusic sheetMusic = SheetMusic.builder()
+                    //.member(null) // 멤버 설정 필요
                     .build();
             sheetMusic = sheetMusicCommandAdapter.save(sheetMusic);
 
@@ -90,7 +97,7 @@ public class SheetMusicService {
                 midiFiles.add(midiFile);
 
                 // MIDI를 MusicXML로 변환 후 S3에 업로드
-                byte[] musicXMLBytes = convertMidiToMusicXML(midiBytes); // 변환 메소드 구현 필요
+                byte[] musicXMLBytes = midiToMusicXMLConverter.convertMidiToMusicXML(midiBytes);
                 String musicXMLFileName = UUID.randomUUID().toString() + ".musicxml";
                 String musicXMLUrl = s3Uploader.upload(musicXMLBytes, s3BucketProperties.getBucket(), "musicxml", musicXMLFileName);
 
@@ -107,13 +114,8 @@ public class SheetMusicService {
 
             // Response DTO 반환
             return sheetMusicMapper.toUploadSheetMusic(sheetMusic, pdfFile);
-        } catch (IOException e) {
+        } catch (IOException | InvalidMidiDataException | JAXBException e) {
             throw new RuntimeException("악보 업로드 및 처리 실패", e);
         }
-    }
-
-    private byte[] convertMidiToMusicXML(byte[] midiBytes) {
-        // MIDI를 MusicXML로 변환하는 로직 구현 필요
-        return new byte[0];
     }
 }
