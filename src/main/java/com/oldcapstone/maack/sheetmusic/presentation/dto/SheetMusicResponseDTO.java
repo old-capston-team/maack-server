@@ -13,8 +13,9 @@ public class SheetMusicResponseDTO {
     @AllArgsConstructor
     public static class UploadSheetMusic {
         private Long sheetMusicId;
-        private String fileName;
-        private String imageUrl;
+        private Long pdfFileId;
+        private String pdfFileName;
+        private String pdfFileUrl;
         private Long fileSize;
     }
 
