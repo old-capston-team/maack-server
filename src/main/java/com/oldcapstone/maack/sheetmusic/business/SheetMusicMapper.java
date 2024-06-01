@@ -46,4 +46,13 @@ public class SheetMusicMapper {
                 .totalPage(mySheetMusicList.getTotalPages())
                 .build();
     }
+
+    public SheetMusicResponseDTO.UploadSheetMusic toUploadSheetMusic(SheetMusic sheetMusic, PDFFile pdfFile) {
+        return SheetMusicResponseDTO.UploadSheetMusic.builder()
+                .sheetMusicId(sheetMusic.getId())
+                .pdfFileId(pdfFile.getId())
+                .pdfFileName(pdfFile.getFileName())
+                .pdfFileUrl(pdfFile.getUrl())
+                .build();
+    }
 }
