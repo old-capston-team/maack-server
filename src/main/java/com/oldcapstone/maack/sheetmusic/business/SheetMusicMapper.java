@@ -2,6 +2,8 @@ package com.oldcapstone.maack.sheetmusic.business;
 
 import com.oldcapstone.maack.common.annotation.Mapper;
 import com.oldcapstone.maack.member.persistence.Member;
+import com.oldcapstone.maack.sheetmusic.persistence.MIDIFile;
+import com.oldcapstone.maack.sheetmusic.persistence.MusicXMLFile;
 import com.oldcapstone.maack.sheetmusic.persistence.PDFFile;
 import com.oldcapstone.maack.sheetmusic.persistence.SheetMusic;
 import com.oldcapstone.maack.sheetmusic.presentation.dto.SheetMusicResponseDTO;
@@ -19,6 +21,18 @@ public class SheetMusicMapper {
                 .fileName(pdfFile.getFileName())
                 .url(pdfFile.getUrl())
                 .fileSize(pdfFile.getFileSize())
+                .build();
+    }
+
+    public SheetMusicResponseDTO.SheetMusicViewResponseDTO getSheetMusicDTO(SheetMusic sheetMusic, PDFFile pdfFile, MusicXMLFile musicXMLFile, MIDIFile midiFile){
+        return SheetMusicResponseDTO.SheetMusicViewResponseDTO.builder()
+                .sheetMusicId(sheetMusic.getId())
+                .pdfFileName(pdfFile.getFileName())
+                .pdfFileUrl(pdfFile.getUrl())
+                .musicXMLFileName(musicXMLFile.getFileName())
+                .musicXMLFIleUrl(musicXMLFile.getUrl())
+                .midiFileName(midiFile.getFileName())
+                .midiFileUrl(midiFile.getUrl())
                 .build();
     }
 

@@ -27,4 +27,9 @@ public class SheetMusicApi {
                                                                                              @RequestParam final Integer page){
         return ApiResponse.onSuccess(sheetMusicService.getMySheetMusicList(memberId,(page-1)));
     }
+
+    @GetMapping("/{sheetMusicId}")
+    public ApiResponse<SheetMusicResponseDTO.SheetMusicViewResponseDTO> getSheetMusic(@PathVariable(name = "sheetMusicId") final Long sheetMusicId){
+        return ApiResponse.onSuccess(sheetMusicService.getSheetMusic(sheetMusicId));
+    }
 }
