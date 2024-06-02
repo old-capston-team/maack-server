@@ -56,13 +56,33 @@ public class SheetMusicResponseDTO {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class MidiFileResponseDTO{
+        Long midiFileId;
+        String fileName;
+        String url;
+        Long fileSize;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MusicXmlFileResponseDTO{
+        Long musicXmlFileId;
+        String fileName;
+        String url;
+        Long fileSize;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class SheetMusicViewResponseDTO{
         Long sheetMusicId;
         String pdfFileName;
         String pdfFileUrl;
-        String musicXMLFileName;
-        String musicXMLFIleUrl;
-        String midiFileName;
-        String midiFileUrl;
+        List<MusicXmlFileResponseDTO> musicXmlFileList;
+        List<MidiFileResponseDTO> midiFileList;
     }
 }
