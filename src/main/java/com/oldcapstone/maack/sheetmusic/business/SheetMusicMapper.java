@@ -9,6 +9,7 @@ import com.oldcapstone.maack.sheetmusic.persistence.SheetMusic;
 import com.oldcapstone.maack.sheetmusic.presentation.dto.SheetMusicResponseDTO;
 import org.springframework.data.domain.Page;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,15 +25,37 @@ public class SheetMusicMapper {
                 .build();
     }
 
-    public SheetMusicResponseDTO.SheetMusicViewResponseDTO getSheetMusicDTO(SheetMusic sheetMusic, PDFFile pdfFile, MusicXMLFile musicXMLFile, MIDIFile midiFile){
+    public static SheetMusicResponseDTO.MidiFileResponseDTO getMidiFileDTO(MIDIFile midiFile){
+        return SheetMusicResponseDTO.MidiFileResponseDTO.builder()
+                .midiFileId(midiFile.getId())
+                .fileName(midiFile.getFileName())
+                .url(midiFile.getUrl())
+                .fileSize(midiFile.getFileSize())
+                .build();
+    }
+
+    public static SheetMusicResponseDTO.MusicXmlFileResponseDTO getMusicXmlFileDTO(MusicXMLFile musicXMLFile){
+        return SheetMusicResponseDTO.MusicXmlFileResponseDTO.builder()
+                .musicXmlFileId(musicXMLFile.getId())
+                .fileName(musicXMLFile.getFileName())
+                .url(musicXMLFile.getUrl())
+                .fileSize(musicXMLFile.getFileSize())
+                .build();
+    }
+
+    public SheetMusicResponseDTO.SheetMusicViewResponseDTO getSheetMusicDTO(SheetMusic sheetMusic, PDFFile pdfFile, List<MusicXMLFile> musicXMLFileList){
+        List<SheetMusicResponseDTO.MidiFileResponseDTO> midiFileResponseDTOList = pdfFile.getMidiFileList().stream()
+                .map(SheetMusicMapper::getMidiFileDTO).collect(Collectors.toList());
+
+        List<SheetMusicResponseDTO.MusicXmlFileResponseDTO> musicXmlFileResponseDTOList = musicXMLFileList.stream()
+                .map(SheetMusicMapper::getMusicXmlFileDTO).collect(Collectors.toList());
+
         return SheetMusicResponseDTO.SheetMusicViewResponseDTO.builder()
                 .sheetMusicId(sheetMusic.getId())
                 .pdfFileName(pdfFile.getFileName())
                 .pdfFileUrl(pdfFile.getUrl())
-                .musicXMLFileName(musicXMLFile.getFileName())
-                .musicXMLFIleUrl(musicXMLFile.getUrl())
-                .midiFileName(midiFile.getFileName())
-                .midiFileUrl(midiFile.getUrl())
+                .midiFileList(midiFileResponseDTOList)
+                .musicXmlFileList(musicXmlFileResponseDTOList)
                 .build();
     }
 

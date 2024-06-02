@@ -15,8 +15,7 @@ public class MusicXMLFileQueryAdapter {
     private final MidiFileQueryAdapter midiFileQueryAdapter;
     private final MusicXMLFIleRepository musicXMLFIleRepository;
 
-    public MusicXMLFile findByMidiFile(Long sheetMusicId){
-        MIDIFile midiFile = midiFileQueryAdapter.findByPDFFile(sheetMusicId);
+    public MusicXMLFile findByMidiFile(MIDIFile midiFile){
         return musicXMLFIleRepository.findByMidiFile(midiFile);
     }
 }

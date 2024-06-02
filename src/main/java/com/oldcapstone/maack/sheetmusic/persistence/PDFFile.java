@@ -4,6 +4,9 @@ import com.oldcapstone.maack.common.persistence.BaseDateTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Builder
@@ -26,4 +29,7 @@ public class PDFFile extends BaseDateTimeEntity {
     private String url; // filePath
 
     private Long fileSize;
+
+    @OneToMany(mappedBy = "pdfFile", cascade = CascadeType.ALL)
+    private List<MIDIFile> midiFileList = new ArrayList<>();
 }

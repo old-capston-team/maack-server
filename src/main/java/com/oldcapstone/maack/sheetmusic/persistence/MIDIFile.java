@@ -4,6 +4,9 @@ import com.oldcapstone.maack.common.persistence.BaseDateTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Builder
