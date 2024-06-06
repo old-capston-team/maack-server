@@ -79,7 +79,7 @@ public class SheetMusicService {
             sheetMusic = sheetMusicCommandAdapter.save(sheetMusic);
 
             // 2. PDF 파일을 S3에 업로드
-            String pdfFileName = UUID.randomUUID().toString() + "_" + originFileName;
+            String pdfFileName = UUID.randomUUID() + "_" + originFileName;
             String pdfUrl = s3Uploader.upload(file.getBytes(), s3BucketProperties.getBucket(), "pdf", pdfFileName);
 
             // 3. PDFFile 엔티티 생성 및 저장
@@ -91,9 +91,10 @@ public class SheetMusicService {
                     .build();
             pdfFile = pdfFileCommandAdapter.save(pdfFile);
 
-            // 4. FastAPI 호출로 MIDI 파일 목록 얻기
-            MidiResponse midiResponse = midiAdapter.convertPdfToMidi(file.getBytes());
-            List<byte[]> midiFileByteList = midiResponse.getMidi();
+            // 4. FastAPI 호출로 MIDI 파일 얻기
+            MidiResponse midiResponse = midiAdapter.convertPdfToMidi(pdfFile);
+
+            List<byte[]> midiFileByteList = List.of(midiResponse.getMidi());
 
             List<MIDIFile> midiFiles = new ArrayList<>();
             List<MusicXMLFile> musicXMLFiles = new ArrayList<>();
@@ -101,7 +102,7 @@ public class SheetMusicService {
             // 5. 각 MIDI 파일 처리
             for (byte[] midiBytes : midiFileByteList) {
                 // MIDI 파일을 S3에 업로드
-                String midiFileName = UUID.randomUUID().toString() + ".midi";
+                String midiFileName = UUID.randomUUID() + ".midi";
                 String midiUrl = s3Uploader.upload(midiBytes, s3BucketProperties.getBucket(), "midi", midiFileName);
 
                 // MIDIFile 엔티티 생성 및 저장
@@ -133,6 +134,7 @@ public class SheetMusicService {
             // Response DTO 반환
             return sheetMusicMapper.toUploadSheetMusic(sheetMusic, pdfFile);
         } catch (IOException | InvalidMidiDataException | JAXBException e) {
+            e.printStackTrace();
             throw new RuntimeException("악보 업로드 및 처리 실패", e);
         }
     }

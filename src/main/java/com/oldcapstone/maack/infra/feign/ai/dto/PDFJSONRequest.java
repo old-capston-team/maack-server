@@ -1,17 +1,15 @@
 package com.oldcapstone.maack.infra.feign.ai.dto;
 
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class PDFJSONRequest {
-    private byte[] PDF;
 
-    public PDFJSONRequest(byte[] PDF) {
-        this.PDF = PDF;
-    }
+    private String url;
 
-    public byte[] getPDF() {
-        return PDF;
-    }
-
-    public void setPDF(byte[] PDF) {
-        this.PDF = PDF;
+    public PDFJSONRequest(String url) {
+        this.url = url;
     }
 }

@@ -21,6 +21,11 @@ cloud:
     stack:
       auto: false
 
+logging:
+  level:
+    feign.client: DEBUG
+    com.oldcapstone.maack.infra.feign.ai.client: DEBUG
+
 ---
 spring:
   config:

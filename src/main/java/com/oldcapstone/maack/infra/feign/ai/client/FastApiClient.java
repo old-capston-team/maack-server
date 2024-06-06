@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Component
-@FeignClient(name = "pdfToMidiClient", url = "http://localhost:30000", configuration = FeignClientConfig.class)
+@FeignClient(name = "pdfToMidiClient", url = "http://222.98.35.241", configuration = FeignClientConfig.class)
 public interface FastApiClient {
     @PostMapping("/pdf_to_midi")
     MidiResponse pdfToMidi(@RequestBody PDFJSONRequest pdfjsonRequest);

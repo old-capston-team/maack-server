@@ -152,6 +152,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                         .build()
                         .toUriString();
 
+        e.printStackTrace();
+
         //        log.error("INTERNAL_SERVER_ERROR", e);
         GlobalErrorCode internalServerError = GlobalErrorCode.INTERNAL_SERVER_ERROR;
         ErrorResponse errorResponse =

@@ -22,29 +22,30 @@ repositories {
 }
 
 ext {
-	set('springCloudVersion', "2022.0.4") // Spring Cloud 2022.0.x (Kilburn) 버전
+	set('springCloudVersion', "2022.0.4")
 }
 
 dependencies {
+	// 기존 종속성들
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	//implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-	implementation 'io.github.openfeign:feign-jackson:12.2'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.4'
+	implementation 'io.github.openfeign:feign-core:11.10'
+	implementation 'io.github.openfeign:feign-gson:11.10' // Gson 인코더 추가
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 	implementation 'io.springfox:springfox-swagger2:2.9.2'
 	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 	implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.1'
 	implementation 'org.glassfish.jaxb:jaxb-runtime:3.0.1'
-//	implementation 'javax.sound.midi:midi:1.0'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	//testImplementation 'org.springframework.security:spring-security-test'
 }
+
 
 dependencyManagement {
 	imports {
