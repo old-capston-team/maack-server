@@ -49,19 +49,24 @@ public class SheetMusicMapper {
                 .build();
     }
 
-    public SheetMusicResponseDTO.SheetMusicViewResponseDTO getSheetMusicDTO(SheetMusic sheetMusic, PDFFile pdfFile, List<MusicXMLFile> musicXMLFileList){
-        List<SheetMusicResponseDTO.MidiFileResponseDTO> midiFileResponseDTOList = pdfFile.getMidiFileList().stream()
-                .map(SheetMusicMapper::getMidiFileDTO).collect(Collectors.toList());
-
-        List<SheetMusicResponseDTO.MusicXmlFileResponseDTO> musicXmlFileResponseDTOList = musicXMLFileList.stream()
-                .map(SheetMusicMapper::getMusicXmlFileDTO).collect(Collectors.toList());
+    public SheetMusicResponseDTO.SheetMusicViewResponseDTO getSheetMusicDTO(SheetMusic sheetMusic, PDFFile pdfFile, MIDIFile midiFile, MusicXMLFile musicXMLFile){
+//        List<SheetMusicResponseDTO.MidiFileResponseDTO> midiFileResponseDTOList = pdfFile.getMidiFileList().stream()
+//                .map(SheetMusicMapper::getMidiFileDTO).collect(Collectors.toList());
+//
+//        List<SheetMusicResponseDTO.MusicXmlFileResponseDTO> musicXmlFileResponseDTOList = musicXMLFileList.stream()
+//                .map(SheetMusicMapper::getMusicXmlFileDTO).collect(Collectors.toList());
 
         return SheetMusicResponseDTO.SheetMusicViewResponseDTO.builder()
                 .sheetMusicId(sheetMusic.getId())
+                .pdfFileId(pdfFile.getId())
                 .pdfFileName(pdfFile.getFileName())
                 .pdfFileUrl(pdfFile.getUrl())
-                .midiFileList(midiFileResponseDTOList)
-                .musicXmlFileList(musicXmlFileResponseDTOList)
+                .midiFileId(midiFile.getId())
+                .midiFileName(midiFile.getFileName())
+                .midiFileUrl(midiFile.getUrl())
+                .musicXmlId(musicXMLFile.getId())
+                .musicXmlFileName(musicXMLFile.getFileName())
+                .musicXmlFileUrl(musicXMLFile.getUrl())
                 .build();
     }
 
