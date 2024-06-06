@@ -1,6 +1,8 @@
 package com.oldcapstone.maack.sheetmusic.implement;
 
 import com.oldcapstone.maack.common.annotation.Adapter;
+import com.oldcapstone.maack.sheetmusic.exception.MidiFileNotFoundException;
+import com.oldcapstone.maack.sheetmusic.exception.SheetMusicNotFoundException;
 import com.oldcapstone.maack.sheetmusic.persistence.MIDIFile;
 import com.oldcapstone.maack.sheetmusic.persistence.MusicXMLFile;
 import com.oldcapstone.maack.sheetmusic.persistence.PDFFile;
@@ -17,5 +19,11 @@ public class MidiFileQueryAdapter {
     public MIDIFile findByPDFFile(Long sheetMusicId) {
         PDFFile pdfFile = pdfFileQueryAdapter.findBySheetMusic(sheetMusicId);
         return midiFileRepository.findByPdfFile(pdfFile);
+    }
+
+    public MIDIFile findByID(Long midiFileId){
+        return midiFileRepository
+                .findById(midiFileId)
+                .orElseThrow(()-> MidiFileNotFoundException.EXCEPTION);
     }
 }

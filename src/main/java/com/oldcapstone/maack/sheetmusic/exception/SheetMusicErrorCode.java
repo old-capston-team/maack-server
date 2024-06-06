@@ -14,7 +14,8 @@ import static com.oldcapstone.maack.common.consts.MaackStatic.NOT_FOUND;
 @Getter
 @AllArgsConstructor
 public enum SheetMusicErrorCode implements BaseErrorCode{
-    SHEET_MUSIC_NOT_FOUND(NOT_FOUND, "SHEET_MUSIC_404_1", "악보를 찾을 수 없습니다.");
+    SHEET_MUSIC_NOT_FOUND(NOT_FOUND, "SHEET_MUSIC_404_1", "악보를 찾을 수 없습니다."),
+    MIDI_FILE_NOT_FOUND(NOT_FOUND, "MIDI_404_1", "미디 파일을 찾을 수 없습니다.");
 
     private final Integer status;
     private final String code;

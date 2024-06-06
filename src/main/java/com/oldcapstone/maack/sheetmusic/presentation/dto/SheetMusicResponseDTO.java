@@ -56,6 +56,14 @@ public class SheetMusicResponseDTO {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class MidiFileUrlResponseDTO{
+        String url;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class MidiFileResponseDTO{
         Long midiFileId;
         String fileName;

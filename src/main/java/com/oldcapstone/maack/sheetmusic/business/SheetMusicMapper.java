@@ -25,6 +25,12 @@ public class SheetMusicMapper {
                 .build();
     }
 
+    public SheetMusicResponseDTO.MidiFileUrlResponseDTO getMidiFileUrlDTO(MIDIFile midiFile){
+        return SheetMusicResponseDTO.MidiFileUrlResponseDTO.builder()
+                .url(midiFile.getUrl())
+                .build();
+    }
+
     public static SheetMusicResponseDTO.MidiFileResponseDTO getMidiFileDTO(MIDIFile midiFile){
         return SheetMusicResponseDTO.MidiFileResponseDTO.builder()
                 .midiFileId(midiFile.getId())
