@@ -60,15 +60,10 @@ public class SheetMusicService {
     public SheetMusicResponseDTO.SheetMusicViewResponseDTO getSheetMusic(Long sheetMusicId){
         SheetMusic sheetMusic = sheetMusicQueryAdapter.findById(sheetMusicId);
         PDFFile pdfFile = pdfFileQueryAdapter.findBySheetMusic(sheetMusicId);
+        MIDIFile midiFile = midiFileQueryAdapter.findByPDFFile(sheetMusicId);
+        MusicXMLFile musicXMLFile = musicXMLFileQueryAdapter.findByMidiFile(midiFile);
 
-        List<MIDIFile> midiFileList = pdfFile.getMidiFileList();
-        List<MusicXMLFile> musicXMLFileList = new ArrayList<>();
-        for(MIDIFile midiFile : midiFileList){
-            MusicXMLFile musicXMLFile = musicXMLFileQueryAdapter.findByMidiFile(midiFile);
-            musicXMLFileList.add(musicXMLFile);
-        }
-
-        return sheetMusicMapper.getSheetMusicDTO(sheetMusic, pdfFile, musicXMLFileList);
+        return sheetMusicMapper.getSheetMusicDTO(sheetMusic, pdfFile, midiFile, musicXMLFile);
     }
 
     @Transactional

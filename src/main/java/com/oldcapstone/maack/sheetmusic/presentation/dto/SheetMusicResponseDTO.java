@@ -88,9 +88,14 @@ public class SheetMusicResponseDTO {
     @AllArgsConstructor
     public static class SheetMusicViewResponseDTO{
         Long sheetMusicId;
+        Long pdfFileId;
         String pdfFileName;
         String pdfFileUrl;
-        List<MusicXmlFileResponseDTO> musicXmlFileList;
-        List<MidiFileResponseDTO> midiFileList;
+        Long midiFileId;
+        String midiFileName;
+        String midiFileUrl;
+        Long musicXmlId;
+        String musicXmlFileName;
+        String musicXmlFileUrl;
     }
 }
