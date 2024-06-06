@@ -17,8 +17,15 @@ public class S3Uploader {
         String key = folder + "/" + fileName;
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentLength(content.length);
+
+        // 특정 폴더에 대해 Content-Disposition 설정
+        if ("musicxml".equals(folder)) {
+            metadata.setContentDisposition("inline");
+        }
+
         ByteArrayInputStream inputStream = new ByteArrayInputStream(content);
         amazonS3.putObject(bucket, key, inputStream, metadata);
+
         return amazonS3.getUrl(bucket, key).toString();
     }
 }
