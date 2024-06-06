@@ -117,7 +117,7 @@ public class SheetMusicService {
 
                 // MIDI를 MusicXML로 변환 후 S3에 업로드
                 byte[] musicXMLBytes = midiToMusicXMLConverter.convertMidiToMusicXML(midiBytes);
-                String musicXMLFileName = UUID.randomUUID().toString() + ".musicxml";
+                String musicXMLFileName = UUID.randomUUID().toString() + ".xml";
                 String musicXMLUrl = s3Uploader.upload(musicXMLBytes, s3BucketProperties.getBucket(), "musicxml", musicXMLFileName);
 
                 // MusicXMLFile 엔티티 생성 및 저장
