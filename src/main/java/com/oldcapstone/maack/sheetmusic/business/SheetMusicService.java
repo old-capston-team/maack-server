@@ -47,8 +47,8 @@ public class SheetMusicService {
 
     private final MidiToMusicXMLConverter midiToMusicXMLConverter;
 
-    public SheetMusicResponseDTO.MidiFileUrlResponseDTO getMidiFileUrl(Long midiFileId){
-        MIDIFile midiFile = midiFileQueryAdapter.findByID(midiFileId);
+    public SheetMusicResponseDTO.MidiFileUrlResponseDTO getMidiFileUrl(Long sheetMusicId){
+        MIDIFile midiFile = midiFileQueryAdapter.findByPDFFile(sheetMusicId);
         return sheetMusicMapper.getMidiFileUrlDTO(midiFile);
     }
 
