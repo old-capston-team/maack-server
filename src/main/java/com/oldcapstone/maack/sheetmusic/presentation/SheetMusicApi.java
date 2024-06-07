@@ -33,8 +33,8 @@ public class SheetMusicApi {
         return ApiResponse.onSuccess(sheetMusicService.getSheetMusic(sheetMusicId));
     }
 
-    @GetMapping("/midi/{midiFileId}")
-    public SheetMusicResponseDTO.MidiFileUrlResponseDTO getMidiFileUrl(@PathVariable(name = "midiFileId") final Long midiFileId){
-        return sheetMusicService.getMidiFileUrl(midiFileId);
+    @GetMapping("/midi/{sheetMusicId}")
+    public SheetMusicResponseDTO.MidiFileUrlResponseDTO getMidiFileUrl(@PathVariable(name = "sheetMusicId") final Long sheetMusicId){
+        return sheetMusicService.getMidiFileUrl(sheetMusicId);
     }
 }
