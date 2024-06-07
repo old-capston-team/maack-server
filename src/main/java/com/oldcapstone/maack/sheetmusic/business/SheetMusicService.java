@@ -4,6 +4,7 @@ import com.oldcapstone.maack.common.property.S3BucketProperties;
 import com.oldcapstone.maack.infra.aws.S3Uploader;
 import com.oldcapstone.maack.infra.feign.ai.dto.MidiResponse;
 import com.oldcapstone.maack.infra.feign.ai.dto.MusicXMLResponse;
+import com.oldcapstone.maack.member.implement.MemberQueryAdapter;
 import com.oldcapstone.maack.sheetmusic.implement.*;
 import com.oldcapstone.maack.sheetmusic.persistence.MIDIFile;
 import com.oldcapstone.maack.sheetmusic.persistence.MusicXMLFile;
@@ -34,6 +35,7 @@ public class SheetMusicService {
     private final PDFFileQueryAdapter pdfFileQueryAdapter;
     private final MidiFileQueryAdapter midiFileQueryAdapter;
     private final MusicXMLFileQueryAdapter musicXMLFileQueryAdapter;
+    private final MemberQueryAdapter memberQueryAdapter;
 
     private final SheetMusicMapper sheetMusicMapper;
     private final MidiAdapter midiAdapter;
@@ -75,7 +77,7 @@ public class SheetMusicService {
         try {
             // 1. SheetMusic 엔티티 생성 및 저장
             SheetMusic sheetMusic = SheetMusic.builder()
-                    //.member(null) // 멤버 설정 필요
+                    .member(memberQueryAdapter.findById(1L)) // 멤버 설정 필요
                     .build();
             sheetMusic = sheetMusicCommandAdapter.save(sheetMusic);
 
