@@ -3,6 +3,7 @@ package com.oldcapstone.maack.sheetmusic.business;
 import com.oldcapstone.maack.common.property.S3BucketProperties;
 import com.oldcapstone.maack.infra.aws.S3Uploader;
 import com.oldcapstone.maack.infra.feign.ai.dto.MidiResponse;
+import com.oldcapstone.maack.infra.feign.ai.dto.MusicXMLResponse;
 import com.oldcapstone.maack.sheetmusic.implement.*;
 import com.oldcapstone.maack.sheetmusic.persistence.MIDIFile;
 import com.oldcapstone.maack.sheetmusic.persistence.MusicXMLFile;
@@ -42,10 +43,10 @@ public class SheetMusicService {
     private final MIDIFileCommandAdapter midiFileCommandAdapter;
     private final MusicXMLFileCommandAdapter musicXMLFileCommandAdapter;
     private final SheetMusicCommandAdapter sheetMusicCommandAdapter;
+    private final MidiToMusicXMLConverter midiToMusicXMLConverter;
 
     private final S3BucketProperties s3BucketProperties;
 
-    private final MidiToMusicXMLConverter midiToMusicXMLConverter;
 
     public SheetMusicResponseDTO.MidiFileUrlResponseDTO getMidiFileUrl(Long sheetMusicId){
         MIDIFile midiFile = midiFileQueryAdapter.findByPDFFile(sheetMusicId);
@@ -116,7 +117,8 @@ public class SheetMusicService {
                 midiFiles.add(midiFile);
 
                 // MIDI를 MusicXML로 변환 후 S3에 업로드
-                byte[] musicXMLBytes = midiToMusicXMLConverter.convertMidiToMusicXML(midiBytes);
+                MusicXMLResponse musicXMLResponse = midiToMusicXMLConverter.convertMidiToMusicXML(midiUrl);
+                byte[] musicXMLBytes = musicXMLResponse.getMusicxml();
                 String musicXMLFileName = UUID.randomUUID().toString() + ".xml";
                 String musicXMLUrl = s3Uploader.upload(musicXMLBytes, s3BucketProperties.getBucket(), "musicxml", musicXMLFileName);
 
@@ -133,7 +135,7 @@ public class SheetMusicService {
 
             // Response DTO 반환
             return sheetMusicMapper.toUploadSheetMusic(sheetMusic, pdfFile);
-        } catch (IOException | InvalidMidiDataException | JAXBException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("악보 업로드 및 처리 실패", e);
         }

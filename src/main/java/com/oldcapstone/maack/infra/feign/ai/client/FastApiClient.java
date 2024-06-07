@@ -1,7 +1,9 @@
 package com.oldcapstone.maack.infra.feign.ai.client;
 
 import com.oldcapstone.maack.infra.feign.ai.config.FeignClientConfig;
+import com.oldcapstone.maack.infra.feign.ai.dto.MTXJSONRequest;
 import com.oldcapstone.maack.infra.feign.ai.dto.MidiResponse;
+import com.oldcapstone.maack.infra.feign.ai.dto.MusicXMLResponse;
 import com.oldcapstone.maack.infra.feign.ai.dto.PDFJSONRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
@@ -13,4 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface FastApiClient {
     @PostMapping("/pdf_to_midi")
     MidiResponse pdfToMidi(@RequestBody PDFJSONRequest pdfjsonRequest);
+
+    @PostMapping("/midi_to_xml")
+    MusicXMLResponse midiToXml(@RequestBody MTXJSONRequest item);
 }
